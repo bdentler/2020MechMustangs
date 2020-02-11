@@ -34,7 +34,8 @@ public class RobotContainer {
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    * 1. Instantiate all individual Subsystems
-   * 2. Instantiate all components required to interact with the subsytem (for example, the controllers required to actuate the subsystems, or camera pipelines, or any other number of things specific to your robot)
+   * 2. Instantiate all components required to interact with the subsytem (controllers,
+   *    actuators, camera pipelines, etc.)
    * 3. Define subsystem default commands, passing any needed dependencies to the commands
    * 4. Map button bindings for non-default commands
    */

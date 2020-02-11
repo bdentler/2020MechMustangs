@@ -25,8 +25,8 @@ public final class Constants {
     }
 
     public static final class MotorCounts {
-        public static final int kFlipUp = 40;
-        public static final int kFlipDown = 40;
+        public static final int kFlipUp = 140;
+        public static final int kFlipDown = 140;
     }
 
     public static final class driveStick {
@@ -39,8 +39,8 @@ public final class Constants {
 
     public static final class commandStick {
         public static final int kCommandStickPort = 1;
-        public static final int kFlipUp = 2; //button number for flip up
-        public static final int kFlipDown = 3; // button number for flip down
+        public static final int kFlipUp = 4; //button number for flip up
+        public static final int kFlipDown = 1; // button number for flip down
     }
     
 }

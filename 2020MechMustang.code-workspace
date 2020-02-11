@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "MechanicalMustang"
+		},
+		{
+			"name": "2020 Mechanical Mustang",
+			"path": "."
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "automatic"
+	}
+}

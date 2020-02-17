@@ -29,8 +29,15 @@ public final class Constants {
     }
 
     public static final class DIO {
-        public static final int kFlipperMotor = 0;
-		public static final int kLiftMotor = 1;
+        public static final int kFlipperMotor = 4;
+        public static final int kLiftMotor = 5;
+        public static final int[] kLeftEncoderPorts = new int[]{0, 1};
+        public static final int[] kRightEncoderPorts = new int[]{2, 3};
+        public static final boolean kLeftEncoderReversed = true;
+        public static final boolean kRightEncoderReversed = true;
+
+        public static final int kEncoderCPR = 1024;
+        public static final double kEncoderDistancePerPulse = (6 * Math.PI) / (double) kEncoderCPR;
     }
 
     public static final class MotorCounts {

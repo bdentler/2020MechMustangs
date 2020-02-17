@@ -10,6 +10,7 @@ package frc.robot;
 import frc.robot.subsystems.ColorWheelManipulator;
 import frc.robot.commands.FlipUp;
 import frc.robot.commands.FlipDown;
+import frc.robot.commands.AutoDriveOffLine;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -40,13 +41,12 @@ public class RobotContainer {
  
   private final chassis m_chassis = new chassis();
   private final ColorWheelManipulator m_colorWheel = new ColorWheelManipulator();
-
-
+  
   XboxController m_commandController = new XboxController(commandStick.kCommandStickPort);
   Joystick m_driveController = new Joystick(driveStick.kDriveStickPort);
 
   // this defines an autonomous command - return the command below
-  //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final AutoDriveOffLine m_autoCommand = new AutoDriveOffLine(m_chassis);
   private final FlipUp m_flipUp = new FlipUp(m_colorWheel);
   private final FlipDown m_flipDown = new FlipDown(m_colorWheel);
 
@@ -82,16 +82,9 @@ public class RobotContainer {
         .whenPressed(m_flipDown);
   }
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-
-  //public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    //return m_autoCommand;
-  //}
+  public Command getAutonomousCommand() {
+    return m_autoCommand;
+  }
 }
 
 

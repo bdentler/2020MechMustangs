@@ -8,8 +8,6 @@
 package frc.robot;
 
 import frc.robot.subsystems.ColorWheelManipulator;
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.FlipUp;
 import frc.robot.commands.FlipDown;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -39,7 +37,7 @@ public class RobotContainer {
    * 3. Define subsystem default commands, passing any needed dependencies to the commands
    * 4. Map button bindings for non-default commands
    */
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+ 
   private final chassis m_chassis = new chassis();
   private final ColorWheelManipulator m_colorWheel = new ColorWheelManipulator();
 
@@ -48,7 +46,7 @@ public class RobotContainer {
   Joystick m_driveController = new Joystick(driveStick.kDriveStickPort);
 
   // this defines an autonomous command - return the command below
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final FlipUp m_flipUp = new FlipUp(m_colorWheel);
   private final FlipDown m_flipDown = new FlipDown(m_colorWheel);
 
@@ -89,10 +87,11 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+
+  //public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
-  }
+    //return m_autoCommand;
+  //}
 }
 
 

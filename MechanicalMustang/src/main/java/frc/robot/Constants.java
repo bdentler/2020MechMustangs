@@ -22,10 +22,12 @@ public final class Constants {
     public static final class MotorSpeeds {
         public static final double kFlipUp = 1.0;
         public static final double kFlipDown = -1.0;
+        public static final double kRotateWheel = 0.7;
         public static final double kLiftUp = 1.0;
         public static final double kLowerDown = -0.7;
         public static final double kRollIn = 0.7;
         public static final double kRollOut = -1.0;
+        public static final double kWinchLift = 1.0;
     }
 
     public static final class DIO {

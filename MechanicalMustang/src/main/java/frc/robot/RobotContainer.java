@@ -77,10 +77,10 @@ public class RobotContainer {
         .whenPressed(() -> m_chassis.setMaxOutput(0.5))
         .whenReleased(() -> m_chassis.setMaxOutput(1));
     
-    new JoystickButton(m_commandController, commandStick.kFlipUp)
+    new JoystickButton(m_commandController, commandStick.kButtonY)
         .whenPressed(m_flipUp);
     
-    new JoystickButton(m_commandController, commandStick.kFlipDown)
+    new JoystickButton(m_commandController, commandStick.kButtonA)
         .whenPressed(m_flipDown);
   }
 

@@ -39,8 +39,16 @@ public final class Constants {
 
     public static final class commandStick {
         public static final int kCommandStickPort = 1;
-        public static final int kFlipUp = 4; //button number for flip up
-        public static final int kFlipDown = 1; // button number for flip down
+        public static final int kButtonA = 1;
+        public static final int kButtonB = 2;
+        public static final int kButtonX = 3; 
+        public static final int kButtonY = 4; 
+        public static final int kButtonLB = 5;
+        public static final int kButtonRB = 6:
+        public static final int kButtonBack = 7;
+        public static final int kButtonStart = 8;
+        public static final int kButtonLstick = 9;
+        public static final int kButtonRstick = 10;
     }
     
 }

@@ -66,3 +66,6 @@ jar {
     from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
 }
+task wrapper(type: Wrapper) {
+    gradleVersion = '6.2'
+}

@@ -51,6 +51,7 @@ public class RobotContainer {
 
   // this defines an autonomous command - return the command below
   private final AutoDriveOffLine m_autoCommand = new AutoDriveOffLine(m_chassis);
+  
   //private final FlipUp m_flipUp = new FlipUp(m_colorWheel);
   //private final FlipDown m_flipDown = new FlipDown(m_colorWheel);
 
@@ -80,35 +81,35 @@ public class RobotContainer {
         .whenReleased(() -> m_chassis.setMaxOutput(1));
     
     new JoystickButton(m_commandController, commandStick.kButtonB)
-        .whileHeld(() -> m_colorWheel.flipMotor(MotorSpeeds.kFlipUp))
+        .whenPressed(() -> m_colorWheel.flipMotor(MotorSpeeds.kFlipUp))
         .whenReleased(() -> m_colorWheel.flipMotor(0));
     
     new JoystickButton(m_commandController, commandStick.kButtonA)
-        .whileHeld(() -> m_colorWheel.flipMotor(MotorSpeeds.kFlipDown))
+        .whenPressed(() -> m_colorWheel.flipMotor(MotorSpeeds.kFlipDown))
         .whenReleased(() -> m_colorWheel.flipMotor(0));
   
     new JoystickButton(m_commandController, commandStick.kButtonY)
-        .whileHeld(() -> m_ballCollector.liftMotor(MotorSpeeds.kLiftUp))
+        .whenPressed(() -> m_ballCollector.liftMotor(MotorSpeeds.kLiftUp))
         .whenReleased(() -> m_ballCollector.liftMotor(0));
     
     new JoystickButton(m_commandController, commandStick.kButtonX)
-        .whileHeld(() -> m_ballCollector.liftMotor(MotorSpeeds.kLowerDown))
+        .whenPressed(() -> m_ballCollector.liftMotor(MotorSpeeds.kLowerDown))
         .whenReleased(() -> m_ballCollector.liftMotor(0));
 
     new JoystickButton(m_commandController, commandStick.kButtonLB)
-        .whileHeld(() -> m_winch.climb(MotorSpeeds.kWinchLift))
+        .whenPressed(() -> m_winch.climb(MotorSpeeds.kWinchLift))
         .whenReleased(() -> m_winch.climb(0));
     
     new JoystickButton(m_commandController, commandStick.kButtonRB)
-        .whileHeld(() -> m_winch.climb(MotorSpeeds.kWinchExtend))
+        .whenPressed(() -> m_winch.climb(MotorSpeeds.kWinchExtend))
         .whenReleased(() -> m_winch.climb(0));
 
     new JoystickButton(m_commandController, commandStick.kButtonBack)
-        .whileHeld(() -> m_colorWheel.rotateWheel(MotorSpeeds.kRotateWheel))
+        .whenPressed(() -> m_colorWheel.rotateWheel(MotorSpeeds.kRotateWheel))
         .whenReleased(() -> m_colorWheel.rotateWheel(0));
     
     new JoystickButton(m_commandController, commandStick.kButtonStart)
-        .whileHeld(() -> m_ballCollector.rollerMotor(MotorSpeeds.kRollIn))
+        .whenPressed(() -> m_ballCollector.rollerMotor(MotorSpeeds.kRollIn))
         .whenReleased(() -> m_ballCollector.rollerMotor(0));
   }
 

@@ -8,8 +8,10 @@
 package frc.robot;
 
 import frc.robot.subsystems.ColorWheelManipulator;
-import frc.robot.commands.FlipUp;
-import frc.robot.commands.FlipDown;
+import frc.robot.subsystems.BallCollector;
+import frc.robot.subsystems.Winch;
+//import frc.robot.commands.FlipUp;
+//import frc.robot.commands.FlipDown;
 import frc.robot.commands.AutoDriveOffLine;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -19,7 +21,7 @@ import frc.robot.subsystems.chassis;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-
+import frc.robot.Constants.MotorSpeeds;
 import frc.robot.Constants.commandStick;
 import frc.robot.Constants.driveStick;
 
@@ -41,14 +43,16 @@ public class RobotContainer {
  
   private final chassis m_chassis = new chassis();
   private final ColorWheelManipulator m_colorWheel = new ColorWheelManipulator();
+  private final BallCollector m_ballCollector = new BallCollector();
+  private final Winch m_winch = new Winch();
   
   XboxController m_commandController = new XboxController(commandStick.kCommandStickPort);
   Joystick m_driveController = new Joystick(driveStick.kDriveStickPort);
 
   // this defines an autonomous command - return the command below
   private final AutoDriveOffLine m_autoCommand = new AutoDriveOffLine(m_chassis);
-  private final FlipUp m_flipUp = new FlipUp(m_colorWheel);
-  private final FlipDown m_flipDown = new FlipDown(m_colorWheel);
+  //private final FlipUp m_flipUp = new FlipUp(m_colorWheel);
+  //private final FlipDown m_flipDown = new FlipDown(m_colorWheel);
 
   public RobotContainer() {
 
@@ -75,11 +79,37 @@ public class RobotContainer {
         .whenPressed(() -> m_chassis.setMaxOutput(0.5))
         .whenReleased(() -> m_chassis.setMaxOutput(1));
     
-    new JoystickButton(m_commandController, commandStick.kFlipUp)
-        .whenPressed(m_flipUp);
+    new JoystickButton(m_commandController, commandStick.kButtonB)
+        .whileHeld(() -> m_colorWheel.flipMotor(MotorSpeeds.kFlipUp))
+        .whenReleased(() -> m_colorWheel.flipMotor(0));
     
-    new JoystickButton(m_commandController, commandStick.kFlipDown)
-        .whenPressed(m_flipDown);
+    new JoystickButton(m_commandController, commandStick.kButtonA)
+        .whileHeld(() -> m_colorWheel.flipMotor(MotorSpeeds.kFlipDown))
+        .whenReleased(() -> m_colorWheel.flipMotor(0));
+  
+    new JoystickButton(m_commandController, commandStick.kButtonY)
+        .whileHeld(() -> m_ballCollector.liftMotor(MotorSpeeds.kLiftUp))
+        .whenReleased(() -> m_ballCollector.liftMotor(0));
+    
+    new JoystickButton(m_commandController, commandStick.kButtonX)
+        .whileHeld(() -> m_ballCollector.liftMotor(MotorSpeeds.kLowerDown))
+        .whenReleased(() -> m_ballCollector.liftMotor(0));
+
+    new JoystickButton(m_commandController, commandStick.kButtonLB)
+        .whileHeld(() -> m_winch.climb(MotorSpeeds.kWinchLift))
+        .whenReleased(() -> m_winch.climb(0));
+    
+    new JoystickButton(m_commandController, commandStick.kButtonRB)
+        .whileHeld(() -> m_winch.climb(MotorSpeeds.kWinchExtend))
+        .whenReleased(() -> m_winch.climb(0));
+
+    new JoystickButton(m_commandController, commandStick.kButtonBack)
+        .whileHeld(() -> m_colorWheel.rotateWheel(MotorSpeeds.kRotateWheel))
+        .whenReleased(() -> m_colorWheel.rotateWheel(0));
+    
+    new JoystickButton(m_commandController, commandStick.kButtonStart)
+        .whileHeld(() -> m_ballCollector.rollerMotor(MotorSpeeds.kRollIn))
+        .whenReleased(() -> m_ballCollector.rollerMotor(0));
   }
 
   public Command getAutonomousCommand() {

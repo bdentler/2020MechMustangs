@@ -20,14 +20,15 @@ public final class Constants {
     }
 
     public static final class MotorSpeeds {
-        public static final double kFlipUp = 1.0;
-        public static final double kFlipDown = -1.0;
+        public static final double kFlipUp = 0.5;
+        public static final double kFlipDown = -0.5;
         public static final double kRotateWheel = 0.7;
-        public static final double kLiftUp = 1.0;
-        public static final double kLowerDown = -0.7;
-        public static final double kRollIn = 0.7;
-        public static final double kRollOut = -1.0;
-        public static final double kWinchLift = 1.0;
+        public static final double kLiftUp = 0.5;
+        public static final double kLowerDown = -0.5;
+        public static final double kRollIn = 0.5;
+        public static final double kRollOut = -0.5;
+        public static final double kWinchLift = 0.5;
+        public static final double kWinchExtend = -0.5;
     }
 
     public static final class DIO {
@@ -35,16 +36,16 @@ public final class Constants {
         public static final int kLiftMotor = 5;
         public static final int[] kLeftEncoderPorts = new int[]{0, 1};
         public static final int[] kRightEncoderPorts = new int[]{2, 3};
-        public static final boolean kLeftEncoderReversed = true;
-        public static final boolean kRightEncoderReversed = true;
+        public static final boolean kLeftEncoderReversed = false;
+        public static final boolean kRightEncoderReversed = false;
 
         public static final int kEncoderCPR = 1024;
         public static final double kEncoderDistancePerPulse = (6 * Math.PI) / (double) kEncoderCPR;
     }
 
     public static final class MotorCounts {
-        public static final int kFlipUp = 140;
-        public static final int kFlipDown = 140;
+        public static final int kFlipUp = 30;
+        public static final int kFlipDown = 30;
     }
 
     public static final class driveStick {
@@ -53,12 +54,23 @@ public final class Constants {
         public static final int kXAxis = 0;
         public static final int kRotateAxis = 2;
         public static final int kDriveStickTrigger = 1;
+        public static final int kDriveStickButton2 = 2;
+        public static final int kDriveStickButton3 = 3;
+        public static final int kDriveStickButton4 = 4;
     }
 
     public static final class commandStick {
         public static final int kCommandStickPort = 1;
-        public static final int kFlipUp = 4; //button number for flip up
-        public static final int kFlipDown = 1; // button number for flip down
+        public static final int kButtonA = 1;
+        public static final int kButtonB = 2;
+        public static final int kButtonX = 3;
+        public static final int kButtonY = 4;
+        public static final int kButtonLB = 5;
+        public static final int kButtonRB = 6;
+        public static final int kButtonBack = 7;
+        public static final int kButtonStart = 8;
+        //public static final int kFlipUp = 4; //button number for flip up
+        //public static final int kFlipDown = 1; // button number for flip down
     }
     
 }

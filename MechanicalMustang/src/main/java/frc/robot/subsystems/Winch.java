@@ -14,11 +14,11 @@ import frc.robot.Constants.PWM;
 
 public class Winch extends SubsystemBase {
   Spark climbMotor = null;
-  Spark crawlMotor = null;
+  //Spark crawlMotor = null;
 
   public Winch() {
     climbMotor = new Spark(PWM.kClimb);
-    crawlMotor = new Spark(PWM.kCrawl);
+    //crawlMotor = new Spark(PWM.kCrawl);
 
   }
 
@@ -26,9 +26,9 @@ public class Winch extends SubsystemBase {
     climbMotor.setSpeed(speed);
   }
 
-  public void crawl(double speed) {
+  /*public void crawl(double speed) {
     crawlMotor.setSpeed(speed);
-  }
+  }*/
 
   @Override
   public void periodic() {

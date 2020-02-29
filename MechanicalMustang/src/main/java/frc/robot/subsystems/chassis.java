@@ -70,6 +70,16 @@ public class chassis extends SubsystemBase {
     chassis.setMaxOutput(maxOutput);
   }
 
+  public void driveChassisWithAcceleration(double startSpeed, double endSpeed, double millis, double driveRotation) {
+    if (leftDriveMotors.getSpeed() < startSpeed) {
+      chassis.arcadeDrive(startSpeed, driveRotation);
+    } else if (leftDriveMotors.getSpeed() >= endSpeed) {
+      chassis.arcadeDrive(endSpeed, driveRotation);
+    } else {
+      chassis.arcadeDrive(leftDriveMotors.getSpeed() + ((endSpeed - startSpeed) / millis / 20), driveRotation);
+    }
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

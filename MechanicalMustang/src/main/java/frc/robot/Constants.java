@@ -46,6 +46,10 @@ public final class Constants {
     public static final class MotorCounts {
         public static final int kFlipUp = 30;
         public static final int kFlipDown = 30;
+        public static final int kRollerDecceleration = 5;
+        public static final int kLiftUp = 30;
+        public static final int kLowerDown = 30;
+        public static final int kLowerDownFirst = 40;
     }
 
     public static final class driveStick {

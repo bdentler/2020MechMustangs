@@ -84,7 +84,7 @@ public class RobotContainer {
         .whenPressed(() -> m_colorWheel.flipMotor(MotorSpeeds.kFlipUp))
         .whenReleased(() -> m_colorWheel.flipMotor(0));
     
-    new JoystickButton(m_commandController, commandStick.kButtonA)
+    new JoystickButton(m_commandController, commandStick.kButtonB)
         .whenPressed(() -> m_colorWheel.flipMotor(MotorSpeeds.kFlipDown))
         .whenReleased(() -> m_colorWheel.flipMotor(0));
   

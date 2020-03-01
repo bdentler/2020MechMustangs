@@ -12,8 +12,9 @@ import frc.robot.subsystems.BallCollector;
 import frc.robot.subsystems.Winch;
 //import frc.robot.commands.FlipUp;
 //import frc.robot.commands.FlipDown;
-import frc.robot.commands.AutoDriveOffLine;
+import frc.robot.commands.DriveStraightAuto;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 
@@ -50,7 +51,7 @@ public class RobotContainer {
   Joystick m_driveController = new Joystick(driveStick.kDriveStickPort);
 
   // this defines an autonomous command - return the command below
-  private final AutoDriveOffLine m_autoCommand = new AutoDriveOffLine(m_chassis);
+  private final DriveStraightAuto m_autoCommand = new DriveStraightAuto(36.0, m_chassis);
   
   //private final FlipUp m_flipUp = new FlipUp(m_colorWheel);
   //private final FlipDown m_flipDown = new FlipDown(m_colorWheel);
@@ -76,23 +77,29 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    new JoystickButton(m_driveController, driveStick.kDriveStickButton9)
+        .whenPressed(() -> m_chassis.setMaxOutput(0.5));
+
+    new JoystickButton(m_driveController, driveStick.kDriveStickButton7)
+        .whenPressed(() -> m_chassis.setMaxOutput(1.0));
+
     new JoystickButton(m_driveController, driveStick.kDriveStickTrigger)
-        .whenPressed(() -> m_chassis.setMaxOutput(0.5))
-        .whenReleased(() -> m_chassis.setMaxOutput(1));
-    
-    new JoystickButton(m_commandController, commandStick.kButtonB)
+        .whenPressed(() -> m_ballCollector.rollerMotor(MotorSpeeds.kRollOut))
+        .whenReleased(() -> m_ballCollector.rollerMotor(MotorSpeeds.kRollIn));
+
+    new POVButton(m_commandController, commandStick.kCommandStickPOVDown)
         .whenPressed(() -> m_colorWheel.flipMotor(MotorSpeeds.kFlipUp))
         .whenReleased(() -> m_colorWheel.flipMotor(0));
     
-    new JoystickButton(m_commandController, commandStick.kButtonB)
+    new POVButton(m_commandController, commandStick.kCommandStickPOVUp)
         .whenPressed(() -> m_colorWheel.flipMotor(MotorSpeeds.kFlipDown))
         .whenReleased(() -> m_colorWheel.flipMotor(0));
   
-    new JoystickButton(m_commandController, commandStick.kButtonY)
+    new POVButton(m_driveController, driveStick.kDriveStickPOVDown)
         .whenPressed(() -> m_ballCollector.liftMotor(MotorSpeeds.kLiftUp))
         .whenReleased(() -> m_ballCollector.liftMotor(0));
     
-    new JoystickButton(m_commandController, commandStick.kButtonX)
+    new POVButton(m_driveController, driveStick.kDriveStickPOVUp)
         .whenPressed(() -> m_ballCollector.liftMotor(MotorSpeeds.kLowerDown))
         .whenReleased(() -> m_ballCollector.liftMotor(0));
 
@@ -104,12 +111,12 @@ public class RobotContainer {
         .whenPressed(() -> m_winch.climb(MotorSpeeds.kWinchExtend))
         .whenReleased(() -> m_winch.climb(0));
 
-    new JoystickButton(m_commandController, commandStick.kButtonBack)
+    new JoystickButton(m_commandController, commandStick.kButtonY)
         .whenPressed(() -> m_colorWheel.rotateWheel(MotorSpeeds.kRotateWheel))
         .whenReleased(() -> m_colorWheel.rotateWheel(0));
     
-    new JoystickButton(m_commandController, commandStick.kButtonStart)
-        .whenPressed(() -> m_ballCollector.rollerMotor(MotorSpeeds.kRollIn))
+    new JoystickButton(m_commandController, commandStick.kButtonA)
+        .whenPressed(() -> m_ballCollector.rollerMotor(0))
         .whenReleased(() -> m_ballCollector.rollerMotor(0));
   }
 

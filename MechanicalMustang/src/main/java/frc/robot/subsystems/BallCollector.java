@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.Counter;
 
 import frc.robot.Constants.PWM;
 import frc.robot.Constants.DIO;
-import frc.robot.Constants.MotorCounts;
 
 public class BallCollector extends SubsystemBase {
   Spark liftMotor = null;
@@ -41,15 +40,6 @@ public class BallCollector extends SubsystemBase {
   }
 
   public void rollerMotor(double speed) {
-    if (lastRollerSpeed != speed) {
-      lastRollerSpeedCount += 1;
-      if (lastRollerSpeedCount >= MotorCounts.kRollerDecceleration) {
-        lastRollerSpeedCount = 0;
-        lastRollerSpeed = speed;
-      } else {
-        speed = 0;
-      }
-    }
     rollerMotor.setSpeed(speed);
   }
 

@@ -9,19 +9,20 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BallCollector;
-import frc.robot.Constants.MotorCounts;
 import frc.robot.Constants.MotorSpeeds;
 
 public class GrabberDown extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final BallCollector m_ballCollector;
   private boolean countReached = false;
+  private int numCounts;
 
-  public GrabberDown(BallCollector subsystem) {
+  public GrabberDown(int counts, BallCollector subsystem) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     m_ballCollector = subsystem;
     addRequirements(m_ballCollector);
+    numCounts = counts;
   }
 
   // Called just before this Command runs the first time
@@ -34,7 +35,7 @@ public class GrabberDown extends CommandBase {
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    if (m_ballCollector.liftMotor(MotorSpeeds.kLowerDown) == MotorCounts.kLowerDown) {
+    if (m_ballCollector.liftMotor(MotorSpeeds.kLowerDown) == numCounts) {
       countReached = true;
     }
   }

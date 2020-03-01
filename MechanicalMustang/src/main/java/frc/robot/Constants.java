@@ -20,14 +20,14 @@ public final class Constants {
     }
 
     public static final class MotorSpeeds {
-        public static final double kFlipUp = -0.5;
-        public static final double kFlipDown = 0.5;
+        public static final double kFlipUp = 0.5;
+        public static final double kFlipDown = -0.5;
         public static final double kRotateWheel = -1.0;
-        public static final double kLiftUp = 0.8;
-        public static final double kLowerDown = -0.8;
-        public static final double kRollIn = -1.0;
-        public static final double kRollOut = 0.7;
-        public static final double kWinchLift = 0.8;
+        public static final double kLiftUp = 0.9;
+        public static final double kLowerDown = -0.25;
+        public static final double kRollIn = -0.6;
+        public static final double kRollOut = 0.45;
+        public static final double kWinchLift = 0.7;
         public static final double kWinchExtend = -0.8;
     }
 
@@ -61,6 +61,10 @@ public final class Constants {
         public static final int kDriveStickButton2 = 2;
         public static final int kDriveStickButton3 = 3;
         public static final int kDriveStickButton4 = 4;
+        public static final int kDriveStickButton7 = 7;
+        public static final int kDriveStickButton9 = 9;
+        public static final int kDriveStickPOVUp = 0;
+        public static final int kDriveStickPOVDown = 180;
     }
 
     public static final class commandStick {
@@ -73,6 +77,8 @@ public final class Constants {
         public static final int kButtonRB = 6;
         public static final int kButtonBack = 7;
         public static final int kButtonStart = 8;
+        public static final int kCommandStickPOVUp = 0;
+        public static final int kCommandStickPOVDown = 180;
         //public static final int kFlipUp = 4; //button number for flip up
         //public static final int kFlipDown = 1; // button number for flip down
     }

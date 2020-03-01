@@ -7,53 +7,50 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.chassis;
+import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj2.command.PIDCommand;
 
-public class AutoDriveOffLine extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+import frc.robot.subsystems.chassis;
+/**
+ * Drive the given distance straight (negative values go backwards). Uses a
+ * local PID controller to run a simple PID loop that is only enabled while this
+ * command is running. The input is the averaged values of the left and right
+ * encoders.
+ */
+public class DriveStraightAuto extends PIDCommand {
   private final chassis m_chassis;
-  /**
-   * Creates a new AutoDriveOffLine.
-   */
-  public AutoDriveOffLine(chassis subSystem) {
-    m_chassis = subSystem;
-    addRequirements(m_chassis);
+  public DriveStraightAuto(double distance, chassis chassis) {
     // Use addRequirements() here to declare subsystem dependencies.
+    super(new PIDController(4, 0, 0),
+        chassis::getAverageEncoderDistance,
+        distance,
+        d -> chassis.driveChassis(d, d));
+      
+    m_chassis = chassis;
+    addRequirements(m_chassis);
+    getController().setTolerance(0.01);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_chassis.driveChassis(0, 0);
     m_chassis.resetEncoders();
-    m_chassis.resetGyro();
+    super.initialize();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double heading = m_chassis.getHeading();
-    double rot;
-    if (heading < -2.0) {
-      rot = 0.1;
-    } else if (heading > 2.0) {
-      rot = -0.1;
-    } else {
-      rot = 0;
-    }
-    m_chassis.driveChassis(0.5, rot);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_chassis.driveChassis(0, 0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (m_chassis.getAverageEncoderDistance() < 36.0);
+    return getController().atSetpoint();
   }
 }

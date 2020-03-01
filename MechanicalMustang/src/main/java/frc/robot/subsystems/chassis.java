@@ -63,7 +63,7 @@ public class chassis extends SubsystemBase {
   }
 
   public void driveChassis(double driveSpeed, double driveRotation) {
-    chassis.arcadeDrive(-driveSpeed, -driveRotation);
+    chassis.arcadeDrive(-driveSpeed, driveRotation);
   }
 
   public void setMaxOutput(double maxOutput) {

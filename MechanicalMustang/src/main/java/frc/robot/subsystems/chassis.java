@@ -72,9 +72,9 @@ public class chassis extends SubsystemBase {
 
   public void driveChassisWithAcceleration(double startSpeed, double endSpeed, double millis, double driveRotation) {
     if (leftDriveMotors.getSpeed() < startSpeed) {
-      chassis.arcadeDrive(-startSpeed, -driveRotation);
+      chassis.arcadeDrive(-startSpeed, driveRotation);
     } else if (leftDriveMotors.getSpeed() >= endSpeed) {
-      chassis.arcadeDrive(-endSpeed, -driveRotation);
+      chassis.arcadeDrive(-endSpeed, driveRotation);
     } else {
       chassis.arcadeDrive(-leftDriveMotors.getSpeed() - ((endSpeed - startSpeed) / millis / 20), driveRotation);
     }

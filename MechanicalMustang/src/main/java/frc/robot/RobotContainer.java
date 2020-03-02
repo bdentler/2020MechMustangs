@@ -74,6 +74,11 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+
+    new RunCommand(() -> m_winch
+        .climb(m_commandController.getRawAxis(5)
+        ));
+        
     new JoystickButton(m_driveController, driveStick.kDriveStickButton9)
         .whenPressed(() -> m_chassis.setMaxOutput(0.5));
 

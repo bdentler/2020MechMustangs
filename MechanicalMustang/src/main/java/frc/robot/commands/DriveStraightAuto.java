@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
+import frc.robot.Constants.MotorSpeeds;
 
 import frc.robot.subsystems.tank;
 /**
@@ -21,7 +22,7 @@ public class DriveStraightAuto extends PIDCommand {
   private final tank m_tank;
   public DriveStraightAuto(double distance, tank tank) {
     // Use addRequirements() here to declare subsystem dependencies.
-    super(new PIDController(4, 0, 0),
+    super(new PIDController(MotorSpeeds.kP * MotorSpeeds.kAutoDriveSpeed, MotorSpeeds.kI, MotorSpeeds.kD),
         tank::getAverageEncoderDistance,
         distance,
         d -> tank.driveChassis(d, d));

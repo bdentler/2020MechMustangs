@@ -15,7 +15,6 @@ public final class Constants {
         public static final int kRotatorMotor = 3;
         public static final int kBallLift = 4;
         public static final int kBallRoller = 5;
-        //public static final int kCrawl = 6;
         public static final int kClimb = 6;
     }
 
@@ -29,6 +28,10 @@ public final class Constants {
         public static final double kRollOut = 0.45;
         public static final double kWinchLift = 0.7;
         public static final double kWinchExtend = -0.8;
+        public static final double kP = 0.9;
+        public static final double kI = 0.0;
+        public static final double kD = 0.0;
+        public static final double kAutoDriveSpeed = 0.6;
     }
 
     public static final class DIO {

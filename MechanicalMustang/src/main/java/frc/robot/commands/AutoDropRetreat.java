@@ -8,24 +8,24 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.chassis;
+import frc.robot.subsystems.tank;
 import frc.robot.subsystems.BallCollector;
 import frc.robot.subsystems.ColorWheelManipulator;
 
 public class AutoDropRetreat extends SequentialCommandGroup {
 
-  public AutoDropRetreat(chassis chassis, BallCollector ballCollector, ColorWheelManipulator CP) {
+  public AutoDropRetreat(tank tank, BallCollector ballCollector, ColorWheelManipulator CP) {
 
     addCommands(
       parallel(
         new GrabberDown(10, ballCollector),
-        new DriveStraightAuto(36.0, chassis)),
+        new DriveStraightAuto(36.0, tank)),
       
       new ShootOutBalls(2.0, ballCollector),
       
       parallel(
         new FlipDown(CP),
-        new DriveStraightAuto(-36.0, chassis),
+        new DriveStraightAuto(-36.0, tank),
         new GrabberDown(30, ballCollector)),
       
       new StartRoller(ballCollector)

@@ -10,14 +10,13 @@ package frc.robot;
 import frc.robot.subsystems.ColorWheelManipulator;
 import frc.robot.subsystems.BallCollector;
 import frc.robot.subsystems.Winch;
-//import frc.robot.commands.FlipUp;
-//import frc.robot.commands.FlipDown;
 import frc.robot.commands.AutoDropRetreat;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 
+import frc.robot.subsystems.tank;
 import frc.robot.subsystems.chassis;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
@@ -42,6 +41,7 @@ public class RobotContainer {
    * 4. Map button bindings for non-default commands
    */
  
+  private final tank m_tank = new tank();
   private final chassis m_chassis = new chassis();
   private final ColorWheelManipulator m_colorWheel = new ColorWheelManipulator();
   private final BallCollector m_ballCollector = new BallCollector();
@@ -51,7 +51,7 @@ public class RobotContainer {
   Joystick m_driveController = new Joystick(driveStick.kDriveStickPort);
 
   // this defines an autonomous command - return the command below
-  private final AutoDropRetreat m_autoCommand = new AutoDropRetreat(m_chassis, m_ballCollector, m_colorWheel);
+  private final AutoDropRetreat m_autoCommand = new AutoDropRetreat(m_tank, m_ballCollector, m_colorWheel);
 
   public RobotContainer() {
 
@@ -78,7 +78,7 @@ public class RobotContainer {
     new RunCommand(() -> m_winch
         .climb(m_commandController.getRawAxis(5)
         ));
-        
+
     new JoystickButton(m_driveController, driveStick.kDriveStickButton9)
         .whenPressed(() -> m_chassis.setMaxOutput(0.5));
 

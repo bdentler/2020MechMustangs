@@ -10,7 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 
-import frc.robot.subsystems.chassis;
+import frc.robot.subsystems.tank;
 /**
  * Drive the given distance straight (negative values go backwards). Uses a
  * local PID controller to run a simple PID loop that is only enabled while this
@@ -18,23 +18,23 @@ import frc.robot.subsystems.chassis;
  * encoders.
  */
 public class DriveStraightAuto extends PIDCommand {
-  private final chassis m_chassis;
-  public DriveStraightAuto(double distance, chassis chassis) {
+  private final tank m_tank;
+  public DriveStraightAuto(double distance, tank tank) {
     // Use addRequirements() here to declare subsystem dependencies.
     super(new PIDController(4, 0, 0),
-        chassis::getAverageEncoderDistance,
+        tank::getAverageEncoderDistance,
         distance,
-        d -> chassis.driveChassis(d, d));
+        d -> tank.driveChassis(d, d));
       
-    m_chassis = chassis;
-    addRequirements(m_chassis);
+    m_tank = tank;
+    addRequirements(m_tank);
     getController().setTolerance(0.01);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_chassis.resetEncoders();
+    m_tank.resetEncoders();
     super.initialize();
   }
 

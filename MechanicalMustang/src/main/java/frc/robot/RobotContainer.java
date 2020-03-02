@@ -12,7 +12,7 @@ import frc.robot.subsystems.BallCollector;
 import frc.robot.subsystems.Winch;
 //import frc.robot.commands.FlipUp;
 //import frc.robot.commands.FlipDown;
-import frc.robot.commands.DriveStraightAuto;
+import frc.robot.commands.AutoDropRetreat;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -51,10 +51,7 @@ public class RobotContainer {
   Joystick m_driveController = new Joystick(driveStick.kDriveStickPort);
 
   // this defines an autonomous command - return the command below
-  private final DriveStraightAuto m_autoCommand = new DriveStraightAuto(36.0, m_chassis);
-  
-  //private final FlipUp m_flipUp = new FlipUp(m_colorWheel);
-  //private final FlipDown m_flipDown = new FlipDown(m_colorWheel);
+  private final AutoDropRetreat m_autoCommand = new AutoDropRetreat(m_chassis, m_ballCollector, m_colorWheel);
 
   public RobotContainer() {
 

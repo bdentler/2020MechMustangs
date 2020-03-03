@@ -7,7 +7,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.BallCollector;
@@ -20,10 +19,12 @@ public class AutoDropRetreat extends SequentialCommandGroup {
     super(
       //new FlipDown(m_CP),
       new DriveStraightAuto(36.0, m_chassis),
+      //new DriveStraightAuto(110.0, m_chassis),
       //new GrabberDown(10, m_sweeper),
       new ShootOutBalls(2.0, m_sweeper),
-      new PrintCommand("start drive straight auto going backward"),
       new DriveStraightAuto(-36.0, m_chassis),
+      //new DriveStraightAuto(-150.0, m_chassis),
+      //new TurnAuto(135.0, m_chassis),
       new StartRoller(m_sweeper)
     );
   }

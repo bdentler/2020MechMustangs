@@ -76,8 +76,6 @@ public final class Constants {
         public static final int kButtonStart = 8;
         public static final int kCommandStickPOVUp = 0;
         public static final int kCommandStickPOVDown = 180;
-        //public static final int kFlipUp = 4; //button number for flip up
-        //public static final int kFlipDown = 1; // button number for flip down
     }
     
 }

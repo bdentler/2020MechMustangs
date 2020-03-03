@@ -42,6 +42,10 @@ public class Chassis extends SubsystemBase {
     rightDriveEncoder.reset();
   }
 
+  public void calibrateGyro() {
+    driveGyro.calibrate();
+  }
+
   public void resetGyro() {
     driveGyro.reset();
   }

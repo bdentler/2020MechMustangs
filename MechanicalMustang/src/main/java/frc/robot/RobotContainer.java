@@ -84,11 +84,11 @@ public class RobotContainer {
         .whenReleased(() -> m_ballCollector.rollerMotor(MotorSpeeds.kRollIn));
 
     new POVButton(m_commandController, commandStick.kCommandStickPOVDown)
-        .whenPressed(() -> m_colorWheel.flipMotor(MotorSpeeds.kFlipUp))
+        .whenPressed(() -> m_colorWheel.flipMotor(MotorSpeeds.kFlipDown))
         .whenReleased(() -> m_colorWheel.flipMotor(0));
     
     new POVButton(m_commandController, commandStick.kCommandStickPOVUp)
-        .whenPressed(() -> m_colorWheel.flipMotor(MotorSpeeds.kFlipDown))
+        .whenPressed(() -> m_colorWheel.flipMotor(MotorSpeeds.kFlipUp))
         .whenReleased(() -> m_colorWheel.flipMotor(0));
   
     new POVButton(m_driveController, driveStick.kDriveStickPOVDown)

@@ -19,8 +19,8 @@ public final class Constants {
     }
 
     public static final class MotorSpeeds {
-        public static final double kFlipUp = 0.5;
-        public static final double kFlipDown = -0.5;
+        public static final double kFlipUp = -0.5;
+        public static final double kFlipDown = 0.5;
         public static final double kRotateWheel = -1.0;
         public static final double kLiftUp = 0.85;
         public static final double kLowerDown = -0.25;

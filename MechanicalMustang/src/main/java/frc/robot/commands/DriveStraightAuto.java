@@ -43,7 +43,7 @@ public class DriveStraightAuto extends CommandBase {
     } else if (currentHeading - m_heading < 2.0) {
       rot = 0.1;
     }
-    m_chassis.driveChassis(m_direction * MotorSpeeds.kAutoDriveSpeed, rot);
+    m_chassis.driveChassis(-m_direction * MotorSpeeds.kAutoDriveSpeed, rot);
   }
 
   // Called once the command ends or is interrupted.

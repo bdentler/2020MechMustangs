@@ -39,6 +39,10 @@ public class BallCollector extends SubsystemBase {
     return liftCount.get();
   }
 
+  public int getCount() {
+    return liftCount.get();
+  }
+
   public void rollerMotor(double speed) {
     rollerMotor.setSpeed(speed);
   }

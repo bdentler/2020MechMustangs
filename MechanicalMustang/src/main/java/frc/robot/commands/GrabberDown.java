@@ -28,14 +28,14 @@ public class GrabberDown extends CommandBase {
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
-    m_ballCollector.resetLiftCount();;
+    m_ballCollector.resetLiftCount();
     countReached = false;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-    if (m_ballCollector.liftMotor(MotorSpeeds.kLowerDown) == numCounts) {
+    if (m_ballCollector.liftMotor(MotorSpeeds.kLowerDown) >= numCounts) {
       countReached = true;
     }
   }

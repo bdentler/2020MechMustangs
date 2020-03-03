@@ -22,16 +22,13 @@ public final class Constants {
         public static final double kFlipUp = 0.5;
         public static final double kFlipDown = -0.5;
         public static final double kRotateWheel = -1.0;
-        public static final double kLiftUp = 0.9;
+        public static final double kLiftUp = 0.85;
         public static final double kLowerDown = -0.25;
         public static final double kRollIn = -0.6;
         public static final double kRollOut = 0.45;
         public static final double kWinchLift = 0.7;
         public static final double kWinchExtend = -0.8;
-        public static final double kP = 0.9;
-        public static final double kI = 0.0;
-        public static final double kD = 0.0;
-        public static final double kAutoDriveSpeed = 0.6;
+        public static final double kAutoDriveSpeed = 0.7;
     }
 
     public static final class DIO {
@@ -50,9 +47,6 @@ public final class Constants {
         public static final int kFlipUp = 50;
         public static final int kFlipDown = 50;
         public static final int kRollerDecceleration = 5;
-        public static final int kLiftUp = 30;
-        public static final int kLowerDown = 30;
-        public static final int kLowerDownFirst = 40;
     }
 
     public static final class driveStick {

@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 import frc.robot.Constants.PWM;
 import frc.robot.Constants.DIO;
 
-public class chassis extends SubsystemBase {
+public class Chassis extends SubsystemBase {
   PWMVictorSPX leftDriveMotors = null;
   PWMVictorSPX rightDriveMotors = null;
   DifferentialDrive chassis = null;
@@ -24,7 +24,7 @@ public class chassis extends SubsystemBase {
   Encoder rightDriveEncoder = null;
   Gyro driveGyro = null;
 
-  public chassis() {
+  public Chassis() {
     leftDriveMotors = new PWMVictorSPX(PWM.kLeftDriveMotors);
     rightDriveMotors = new PWMVictorSPX(PWM.kRightDriveMotors);
     chassis = new DifferentialDrive(leftDriveMotors, rightDriveMotors);
@@ -68,16 +68,6 @@ public class chassis extends SubsystemBase {
 
   public void setMaxOutput(double maxOutput) {
     chassis.setMaxOutput(maxOutput);
-  }
-
-  public void driveChassisWithAcceleration(double startSpeed, double endSpeed, double millis, double driveRotation) {
-    if (leftDriveMotors.getSpeed() < startSpeed) {
-      chassis.arcadeDrive(-startSpeed, driveRotation);
-    } else if (leftDriveMotors.getSpeed() >= endSpeed) {
-      chassis.arcadeDrive(-endSpeed, driveRotation);
-    } else {
-      chassis.arcadeDrive(-leftDriveMotors.getSpeed() - ((endSpeed - startSpeed) / millis / 20), driveRotation);
-    }
   }
 
   @Override

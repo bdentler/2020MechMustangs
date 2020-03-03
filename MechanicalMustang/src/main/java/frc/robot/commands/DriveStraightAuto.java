@@ -7,51 +7,54 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj2.command.PIDCommand;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.MotorSpeeds;
+import frc.robot.subsystems.Chassis;
 
-import frc.robot.subsystems.tank;
-/**
- * Drive the given distance straight (negative values go backwards). Uses a
- * local PID controller to run a simple PID loop that is only enabled while this
- * command is running. The input is the averaged values of the left and right
- * encoders.
- */
-public class DriveStraightAuto extends PIDCommand {
-  private final tank m_tank;
-  public DriveStraightAuto(double distance, tank tank) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    super(new PIDController(MotorSpeeds.kP * MotorSpeeds.kAutoDriveSpeed, MotorSpeeds.kI, MotorSpeeds.kD),
-        tank::getAverageEncoderDistance,
-        distance,
-        d -> tank.driveChassis(d, d));
-      
-    m_tank = tank;
-    addRequirements(m_tank);
-    getController().setTolerance(0.01);
+public class DriveStraightAuto extends CommandBase {
+  Chassis m_chassis;
+  double m_distance;
+  double m_heading;
+  double m_direction;
+  
+  public DriveStraightAuto(double distance, Chassis subsys) {
+    m_chassis = subsys;
+    m_distance = distance;
+    addRequirements(m_chassis);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_tank.resetEncoders();
-    super.initialize();
+    m_chassis.driveChassis(0, 0);
+    m_chassis.resetEncoders();
+    m_chassis.resetGyro();
+    m_heading = m_chassis.getHeading();
+    m_direction = Math.abs(m_distance) / m_distance;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    double rot = 0;
+    double currentHeading = m_chassis.getHeading();
+    if (currentHeading - m_heading > 2.0) {
+      rot = -0.1;
+    } else if (currentHeading - m_heading < 2.0) {
+      rot = 0.1;
+    }
+    m_chassis.driveChassis(m_direction * MotorSpeeds.kAutoDriveSpeed, rot);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_chassis.driveChassis(0, 0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return getController().atSetpoint();
+    return (Math.abs(m_chassis.getAverageEncoderDistance()) >= m_distance);
   }
 }

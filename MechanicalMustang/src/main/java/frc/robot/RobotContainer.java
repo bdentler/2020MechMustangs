@@ -23,6 +23,15 @@ import edu.wpi.first.wpilibj.XboxController;
 
 import frc.robot.Constants.commandStick;
 import frc.robot.Constants.driveStick;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
+
+CameraServer.getInstance().startAutomaticCapture();
+
+CvSink cvSink = CameraServer.getInstance().getVideo();
+
+CvSource outputStream = CameraServer.getInstance().putVideo("Blur", 640, 480); 
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a

@@ -27,12 +27,6 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 
-CameraServer.getInstance().startAutomaticCapture();
-
-CvSink cvSink = CameraServer.getInstance().getVideo();
-
-CvSource outputStream = CameraServer.getInstance().putVideo("Blur", 640, 480); 
-
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}

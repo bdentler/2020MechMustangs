@@ -7,20 +7,15 @@
 
 package frc.robot;
 
-import frc.robot.subsystems.ColorWheelManipulator;
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.FlipUp;
-import frc.robot.commands.FlipDown;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-
-import frc.robot.subsystems.chassis;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 
+import frc.robot.Constants.MotorSpeeds;
 import frc.robot.Constants.commandStick;
 import frc.robot.Constants.driveStick;
 import edu.wpi.first.cameraserver.CameraServer;
@@ -42,18 +37,17 @@ public class RobotContainer {
    * 3. Define subsystem default commands, passing any needed dependencies to the commands
    * 4. Map button bindings for non-default commands
    */
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final chassis m_chassis = new chassis();
+ 
+  private final Chassis m_chassis = new Chassis();
   private final ColorWheelManipulator m_colorWheel = new ColorWheelManipulator();
-
-
+  private final BallCollector m_ballCollector = new BallCollector();
+  private final Winch m_winch = new Winch();
+  
   XboxController m_commandController = new XboxController(commandStick.kCommandStickPort);
   Joystick m_driveController = new Joystick(driveStick.kDriveStickPort);
 
   // this defines an autonomous command - return the command below
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-  private final FlipUp m_flipUp = new FlipUp(m_colorWheel);
-  private final FlipDown m_flipDown = new FlipDown(m_colorWheel);
+  private final AutoDropRetreat m_autoCommand = new AutoDropRetreat(m_colorWheel, m_chassis, m_ballCollector);
 
   public RobotContainer() {
 
@@ -65,7 +59,7 @@ public class RobotContainer {
       new RunCommand(() -> m_chassis
           .driveChassis(m_driveController.getY(),
                        m_driveController.getX()), m_chassis));
-    
+
     configureButtonBindings();
   }
 
@@ -76,24 +70,51 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+
+    new JoystickButton(m_driveController, driveStick.kDriveStickButton9)
+        .whenPressed(() -> m_chassis.setMaxOutput(0.5));
+
+    new JoystickButton(m_driveController, driveStick.kDriveStickButton7)
+        .whenPressed(() -> m_chassis.setMaxOutput(1.0));
+
     new JoystickButton(m_driveController, driveStick.kDriveStickTrigger)
-        .whenPressed(() -> m_chassis.setMaxOutput(0.5))
-        .whenReleased(() -> m_chassis.setMaxOutput(1));
+        .whenPressed(() -> m_ballCollector.rollerMotor(MotorSpeeds.kRollOut))
+        .whenReleased(() -> m_ballCollector.rollerMotor(MotorSpeeds.kRollIn));
+
+    new POVButton(m_commandController, commandStick.kCommandStickPOVDown)
+        .whenPressed(() -> m_colorWheel.flipMotor(MotorSpeeds.kFlipDown))
+        .whenReleased(() -> m_colorWheel.flipMotor(0));
     
+    new POVButton(m_commandController, commandStick.kCommandStickPOVUp)
+        .whenPressed(() -> m_colorWheel.flipMotor(MotorSpeeds.kFlipUp))
+        .whenReleased(() -> m_colorWheel.flipMotor(0));
+  
+    new POVButton(m_driveController, driveStick.kDriveStickPOVDown)
+        .whenPressed(() -> m_ballCollector.liftMotor(MotorSpeeds.kLiftUp))
+        .whenReleased(() -> m_ballCollector.liftMotor(0));
+    
+    new POVButton(m_driveController, driveStick.kDriveStickPOVUp)
+        .whenPressed(() -> m_ballCollector.liftMotor(MotorSpeeds.kLowerDown))
+        .whenReleased(() -> m_ballCollector.liftMotor(0));
+
+    new JoystickButton(m_commandController, commandStick.kButtonLB)
+        .whenPressed(() -> m_winch.climb(MotorSpeeds.kWinchLift))
+        .whenReleased(() -> m_winch.climb(0));
+    
+    new JoystickButton(m_commandController, commandStick.kButtonRB)
+        .whenPressed(() -> m_winch.climb(MotorSpeeds.kWinchExtend))
+        .whenReleased(() -> m_winch.climb(0));
+
     new JoystickButton(m_commandController, commandStick.kButtonY)
-        .whenPressed(m_flipUp);
+        .whenPressed(() -> m_colorWheel.rotateWheel(MotorSpeeds.kRotateWheel))
+        .whenReleased(() -> m_colorWheel.rotateWheel(0));
     
     new JoystickButton(m_commandController, commandStick.kButtonA)
-        .whenPressed(m_flipDown);
+        .whenPressed(() -> m_ballCollector.rollerMotor(0))
+        .whenReleased(() -> m_ballCollector.rollerMotor(0));
   }
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
     return m_autoCommand;
   }
 }

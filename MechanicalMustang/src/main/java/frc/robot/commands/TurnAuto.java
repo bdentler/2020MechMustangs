@@ -17,7 +17,6 @@ public class TurnAuto extends CommandBase {
   public TurnAuto(double ang, Chassis subsystem) {
     m_chassis = subsystem;
     angle = ang;
-
     addRequirements(m_chassis);
   }
 
@@ -30,7 +29,6 @@ public class TurnAuto extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_chassis.driveChassis(0, 0.6);
   }
 
   // Called once the command ends or is interrupted.
@@ -42,6 +40,6 @@ public class TurnAuto extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (m_chassis.getHeading() >= angle);
+    return m_chassis.rotateToAngle(angle);
   }
 }

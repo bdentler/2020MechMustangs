@@ -23,11 +23,11 @@ public final class Constants {
         public static final double kFlipDown = 0.5;
         public static final double kRotateWheel = -1.0;
         public static final double kLiftUp = 0.85;
-        public static final double kLowerDown = -0.25;
+        public static final double kLowerDown = -0.4;
         public static final double kRollIn = -0.6;
         public static final double kRollOut = 0.45;
-        public static final double kWinchLift = 0.7;
-        public static final double kWinchExtend = -0.8;
+        public static final double kWinchLift = 0.9;  //game
+        public static final double kWinchExtend = -0.5;  //reset
         public static final double kAutoDriveSpeed = 0.7;
     }
 
@@ -47,6 +47,12 @@ public final class Constants {
         public static final int kFlipUp = 50;
         public static final int kFlipDown = 50;
         public static final int kRollerDecceleration = 5;
+    }
+
+    public static final class PID {
+        public static final double rotateToAngleThreshHold = 2.0;
+        public static final double kPAngle = 0.03;
+        public static final double kPDrive = 0.7;
     }
 
     public static final class driveStick {

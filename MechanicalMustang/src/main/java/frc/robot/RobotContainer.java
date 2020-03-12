@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -22,6 +24,7 @@ import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.ColorWheelManipulator;
 import frc.robot.subsystems.BallCollector;
 import frc.robot.subsystems.Winch;
+import frc.robot.commands.AutoDriveOffLine;
 import frc.robot.commands.AutoDropRetreat;
 
 /**
@@ -49,7 +52,10 @@ public class RobotContainer {
   Joystick m_driveController = new Joystick(driveStick.kDriveStickPort);
 
   // this defines an autonomous command - return the command below
-  private final AutoDropRetreat m_autoCommand = new AutoDropRetreat(m_colorWheel, m_chassis, m_ballCollector);
+  private final AutoDropRetreat m_complex = new AutoDropRetreat(m_colorWheel, m_chassis, m_ballCollector);
+  private final AutoDriveOffLine m_simple = new AutoDriveOffLine(m_chassis, m_ballCollector, m_colorWheel);
+
+  SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   public RobotContainer() {
 
@@ -61,6 +67,13 @@ public class RobotContainer {
       new RunCommand(() -> m_chassis
           .driveChassis(m_driveController.getY(),
                        m_driveController.getX()), m_chassis));
+    
+                       // Add commands to the autonomous command chooser
+    m_chooser.addOption("Drive and Keep balls", m_simple);
+    m_chooser.addOption("Drive and Dump balls", m_complex);
+
+    // Put the chooser on the dashboard
+    Shuffleboard.getTab("Autonomous").add(m_chooser);
 
     configureButtonBindings();
   }
@@ -117,7 +130,7 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return m_autoCommand;
+    return m_chooser.getSelected();
   }
 }
 

@@ -14,8 +14,6 @@ import frc.robot.subsystems.Chassis;
 public class DriveStraightAuto extends CommandBase {
   Chassis m_chassis;
   double m_distance;
-  double m_heading;
-  double m_direction;
   
   public DriveStraightAuto(double distance, Chassis subsys) {
     m_chassis = subsys;
@@ -29,21 +27,12 @@ public class DriveStraightAuto extends CommandBase {
     m_chassis.driveChassis(0, 0);
     m_chassis.resetEncoders();
     m_chassis.resetGyro();
-    m_heading = m_chassis.getHeading();
-    m_direction = Math.abs(m_distance) / m_distance;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double rot = 0;
-    double currentHeading = m_chassis.getHeading();
-    if (currentHeading - m_heading > 2.0) {
-      rot = -0.1;
-    } else if (currentHeading - m_heading < 2.0) {
-      rot = 0.1;
-    }
-    m_chassis.driveChassis(-m_direction * MotorSpeeds.kAutoDriveSpeed, rot);
+    
   }
 
   // Called once the command ends or is interrupted.
@@ -55,6 +44,6 @@ public class DriveStraightAuto extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs(m_chassis.getAverageEncoderDistance()) >= Math.abs(m_distance));
+    return m_chassis.driveStraight(MotorSpeeds.kAutoDriveSpeed, m_distance);
   }
 }

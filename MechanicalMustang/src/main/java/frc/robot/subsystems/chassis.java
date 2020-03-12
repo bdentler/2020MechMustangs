@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import frc.robot.Constants.PWM;
 import frc.robot.Constants.DIO;
+import frc.robot.Constants.PID;
 
 public class Chassis extends SubsystemBase {
   PWMVictorSPX leftDriveMotors = null;
@@ -35,6 +36,7 @@ public class Chassis extends SubsystemBase {
     leftDriveEncoder.setDistancePerPulse(DIO.kEncoderDistancePerPulse);
     rightDriveEncoder.setDistancePerPulse(DIO.kEncoderDistancePerPulse);
     driveGyro.calibrate();
+    
   }
 
   public void resetEncoders() {
@@ -67,11 +69,40 @@ public class Chassis extends SubsystemBase {
   }
 
   public void driveChassis(double driveSpeed, double driveRotation) {
-    chassis.arcadeDrive(-driveSpeed, driveRotation);
+    chassis.arcadeDrive(-driveSpeed, driveRotation, false);
   }
 
   public void setMaxOutput(double maxOutput) {
     chassis.setMaxOutput(maxOutput);
+  }
+
+  public boolean driveStraight(double speed, double distance) {
+    boolean arrived = false;
+    double headingError = -getHeading();
+    double rotation = PID.kPAngle * headingError;
+    double distanceError = distance - getAverageEncoderDistance();
+    if (distanceError > 10) {
+      speed = distanceError / 10 * speed * PID.kPDrive;
+    } else {
+      speed = 0;
+      arrived = true;
+    }
+    chassis.arcadeDrive(speed, rotation, false);
+    return arrived;
+  }
+
+  public boolean rotateToAngle(double targetAngle) {
+    double error = targetAngle - getHeading();
+    double rotation;
+    boolean returnValue = false;
+    if (error > PID.rotateToAngleThreshHold) {
+      rotation = error * PID.kPAngle;
+    } else {
+      rotation = 0;
+      returnValue = true;
+    }
+    chassis.arcadeDrive(0, rotation, false);
+    return returnValue;
   }
 
   @Override

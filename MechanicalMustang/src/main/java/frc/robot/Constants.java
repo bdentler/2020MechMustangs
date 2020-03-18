@@ -29,6 +29,7 @@ public final class Constants {
         public static final double kWinchLift = 0.9;  //game
         public static final double kWinchExtend = -0.5;  //reset
         public static final double kAutoDriveSpeed = 0.7;
+        public static final double kRotateProportion = 0.7;
     }
 
     public static final class DIO {

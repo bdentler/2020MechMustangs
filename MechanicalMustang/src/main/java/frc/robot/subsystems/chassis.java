@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import frc.robot.Constants.PWM;
 import frc.robot.Constants.DIO;
+import frc.robot.Constants.MotorSpeeds;
 import frc.robot.Constants.PID;
 
 public class Chassis extends SubsystemBase {
@@ -69,7 +70,7 @@ public class Chassis extends SubsystemBase {
   }
 
   public void driveChassis(double driveSpeed, double driveRotation) {
-    chassis.arcadeDrive(-driveSpeed, driveRotation, false);
+    chassis.arcadeDrive(-driveSpeed, MotorSpeeds.kRotateProportion * driveRotation, false);
   }
 
   public void setMaxOutput(double maxOutput) {
